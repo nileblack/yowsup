@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 class MediaUploader(WARequest, threading.Thread):
-    def __init__(self, jid, accountJid, sourcePath, uploadUrl, resumeOffset=0, successClbk=None, errorClbk=None, progressCallback=None, asynchronous=True):
-        WARequest.__init__(self)
+    def __init__(self, profile, jid, accountJid, sourcePath, uploadUrl, resumeOffset=0, successClbk=None, errorClbk=None, progressCallback=None, asynchronous=True):
+        WARequest.__init__(self, profile)
 
         self.asynchronous = asynchronous
         self.jid = jid

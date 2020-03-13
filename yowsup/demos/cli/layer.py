@@ -425,6 +425,7 @@ class YowsupCliLayer(Cli, YowInterfaceLayer):
 
     @clicmd("Quick login")
     def L(self):
+       
         if self.connected:
             return self.output("Already connected, disconnect first")
         threading.Thread(target=lambda: self.getLayerInterface(YowNetworkLayer).connect()).start()
@@ -546,8 +547,9 @@ class YowsupCliLayer(Cli, YowInterfaceLayer):
             self.doSendMedia(mediaType, filePath, resultRequestUploadIqProtocolEntity.getUrl(), jid,
                              resultRequestUploadIqProtocolEntity.getIp(), caption)
         else:
+            profile = self.getStack().getProp("profile")
             successFn = lambda filePath, jid, url: self.doSendMedia(mediaType, filePath, url, jid, resultRequestUploadIqProtocolEntity.getIp(), caption)
-            mediaUploader = MediaUploader(jid, self.getOwnJid(), filePath,
+            mediaUploader = MediaUploader(profile, jid, self.getOwnJid(), filePath,
                                       resultRequestUploadIqProtocolEntity.getUrl(),
                                       resultRequestUploadIqProtocolEntity.getResumeOffset(),
                                       successFn, self.onUploadError, self.onUploadProgress, asynchronous=False)
